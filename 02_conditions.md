@@ -57,7 +57,7 @@ Ces méthodes sont faciles à reconnaître, elle finissent par un `?`.
 [1, 2].empty? #=> false
 {key: "value"}.empty? #=> false
 ```
-La méthode `#empty?` s'applique sur un objet *string*, *array*, *hash*... pour vérifier si l'objet est vide.
+La méthode `#empty?` s'applique sur un objet *string*, *array* ou *hash* pour vérifier si l'objet est vide.
 La méthode retourne **true** si l'objet est vide, sinon **false**.
 
 ```ruby
@@ -71,8 +71,11 @@ La méthode retourne **true** si l'objet est vide, sinon **false**.
 La méthode `#include?` retourne **true** si l'objet contient la valeur indiquée en paramètre.
 Celle-ci peut être indiquée avec un espace `"hello".include? "h"` ou avec des parenthèses `"hello".include?("h")`.
 `"hello".include? "h"` retourne **true** si la chaîne de caractères *hello* contient la lettre *h*.
-`["a", "b"].include? "a"` retourne **true** si le tableau contient la valeur *a*. `["abc", "def"].include? "a"` retourne **false** car aucune des valeur n'est *a* (même si l'une des valeur contient la lettre *a*).
-Sur un `hash`, la méthode `#include?` retourne **true** si la clé indiquée en paramètre existe, non pas la valeur. `{key: "value"}.include? :key` retourne donc **true** car la clé *:key* existe, mais `{key: "value"}.include? "value"` retourne *false* car la clé *"value"* n'existe pas. Cependant, la méthode `#has_key?` est plus adaptée à un *hash*.
+
+`["a", "b"].include? "a"` retourne **true** si le tableau contient la valeur *a*. `["abc", "def"].include? "a"` retourne **false** car aucune des valeurs n'est "a", même si l'une des valeurs contient la lettre *a*. Pour vérifier cela, il faudrait utiliser une boucle `#each` et tester chacune des valeurs avec `#include?` : `["abc", "def"].each { |e| e.include? "a" }`.
+
+
+Sur un `hash`, la méthode `#include?` retourne **true** si la clé indiquée en paramètre existe. `{key: "value"}.include? :key` retourne donc **true** car la clé :key existe mais `{key: "value"}.include? "value"` retourne *false* car la clé "value" n'existe pas, même si la valeur "value" existe. La méthode `#key?` est plus adaptée à un *hash* et la méthode `#value?` permet de chercher une valeur (*infra*).
 
 ```ruby
 "abc".start_with? "a" #=> true
