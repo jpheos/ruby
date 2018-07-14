@@ -72,7 +72,7 @@ La méthode `#include?` retourne **true** si l'objet contient la valeur indiqué
 Celle-ci peut être indiquée avec un espace `"hello".include? "h"` ou avec des parenthèses `"hello".include?("h")`.
 `"hello".include? "h"` retourne **true** si la chaîne de caractères *hello* contient la lettre *h*.
 
-`["a", "b"].include? "a"` retourne **true** si le tableau contient la valeur *a*. `["abc", "def"].include? "a"` retourne **false** car aucune des valeurs n'est "a", même si l'une des valeurs contient la lettre *a*. Pour vérifier cela, il faudrait utiliser une boucle `#each` et tester chacune des valeurs avec `#include?` : `["abc", "def"].each { |e| e.include? "a" }`.
+`["a", "b"].include? "a"` retourne **true** car le tableau contient la valeur "a". `["abc", "def"].include? "a"` retourne **false** car aucune des valeurs n'est "a", même si l'une des valeurs contient la lettre *a*. Pour vérifier cela, il faudrait utiliser une boucle `#each` et tester chacune des valeurs avec `#include?` : `["abc", "def"].map { |e| e.include? "a" }` retourne un tableau contenant les valeurs **true** ("abc" contient "a") et **false** ("def" ne contient pas "a").
 
 
 Sur un `hash`, la méthode `#include?` retourne **true** si la clé indiquée en paramètre existe. `{key: "value"}.include? :key` retourne donc **true** car la clé :key existe mais `{key: "value"}.include? "value"` retourne *false* car la clé "value" n'existe pas, même si la valeur "value" existe. La méthode `#key?` est plus adaptée à un *hash* et la méthode `#value?` permet de chercher une valeur (*infra*).
@@ -93,8 +93,8 @@ Les méthodes `#odd?` et `#even?` retournent **true** si un objet *integer* est 
 {key: "value"}.key? :key #=> true
 {key: "value"}.value? "value" #=> true
 ```
-Les méthodes `#key?` et `#value?` retournent **true** si un objet *hash* contient une clé ou une valeur - respectivement - correspondant au paramètre indiqué. Les méthodes `#has_key?` et `#has_value?` fonctionnent aussi et font exactement la même chose mais il semble préférable de ne pas les utiliser.
+Les méthodes `#key?` et `#value?` retournent **true** si un objet *hash* contient une clé ou une valeur - respectivement - correspondant au paramètre indiqué. Les méthodes `#has_key?` et `#has_value?` fonctionnent aussi et font exactement la même chose mais il semble préférable de ne pas les utiliser (méthodes dépréciées).
 
-Il doit y avoir une petite centaine de méthodes retournnt **true** ou **false**, d'après la documentation *Ruby*.
+Il doit y avoir une centaine de méthodes retournant **true** ou **false**, d'après la documentation *Ruby*. Le plus simple pour les voir est d'aller sur [la documentation *Ruby*](https://ruby-doc.org/core-2.5.1/) et d'indiquer "?" dans la barre de recherche des méthodes.
 
-La méthode la plus simple pour les voir est d'aller sur [la documentation *Ruby*](https://ruby-doc.org/core-2.5.1/) et d'indiquer "?" dans la barre de recherche des méthodes.
+### *To be continued...*
