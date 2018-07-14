@@ -95,5 +95,3 @@ Les méthodes `#key?` et `#value?` retournent **true** si un objet *hash* contie
 Il doit y avoir une petite centaine de méthodes retournnt **true** ou **false**, d'après la documentation *Ruby*.
 
 La méthode la plus simple pour les voir est d'aller sur [la documentation *Ruby*](https://ruby-doc.org/core-2.5.1/) et d'indiquer "?" dans la barre de recherche des méthodes.
-
-![screenshot](img/methods_true_false.png)
