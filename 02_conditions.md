@@ -16,7 +16,7 @@ Retourne **true** si la condition est vraie, sinon **false**.
 x <=> y
 ```
 
-Retourne **0** si x = y, **1* si x > y et **-1** si x < y.
+Retourne **0** si `x = y`, **1** si `x > y` et **-1** si `x < y`.
 
 ### Comparaisons multiples
 
@@ -24,13 +24,13 @@ Retourne **0** si x = y, **1* si x > y et **-1** si x < y.
 a == b && c == d
 ```
 
-Retourne **true** si a = b **et** c = d et retourne **false** si une des deux conditions n'est pas respectée.
+Retourne **true** si `a = b` **et** `c = d` et retourne **false** si une des deux conditions n'est pas respectée.
 
 ```ruby
 a == b || c == d
 ```
 
-Retourne **true** si a = b **ou** c = d et retourne **false** si aucune des deux conditions n'est respectée.
+Retourne **true** si `a = b` **ou** `c = d` et retourne **false** si aucune des deux conditions n'est respectée.
 
 Il est évidemment possible de tester plus de conditions :
 
