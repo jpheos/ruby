@@ -1,4 +1,4 @@
-# Comparaisons
+# True / False
 
 ### Comparaisons simples
 
