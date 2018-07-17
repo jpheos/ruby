@@ -127,6 +127,8 @@ Dans la console, il est possible de :
 * si une méthode est appelée, *entrer* dans la méthode en tapant `step` ;
 * quitter le programme en tapant `exit-program`.
 
+Taper `help` permet d'afficher la liste des (nombreuses) autres commandes.
+
 Par exemple, en tapant le nom de la variable `words_array`, on obtient sa valeur :
 
 ```bash
