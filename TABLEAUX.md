@@ -2,7 +2,7 @@
 
 # Lecture et modification des valeurs
 
-**[]**
+**[indice]**
 
 Retourne les valeurs aux indices donnés.
 
