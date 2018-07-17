@@ -204,3 +204,37 @@ builder   = Nokogiri::XML::Builder.new(encoding: 'UTF-8') do
 end
 File.open(filepath, 'wb') { |file| file.write(builder.to_xml) }
 ```
+
+# Scraping
+
+Lorsqu'un site web ne fournit pas d'API permettant d'utiliser les données, il faut utiliser le *scrapping*, c'est-à-dire analyser la manière dont est construit le site web pour récupérer les informations et les *parser*. La gem *nokogiri* permet de réaliser cela.
+
+## Application
+
+Le site [letscookfrench.com](http://www.letscookfrench.com/) ne propose pas d'API.
+
+### Construire l'URL
+
+Lorsqu'une recherche est effectuée, l'URL renvoyé est "marmiton.org/recettes/recherche.aspx?type=all&aqt=**recette**". La récupération des informations se fera donc en construisant automatiquement l'URL :
+
+```ruby
+recipe = "muffin" # Donnée entrée par l'utilisateur par la suite
+url = "https://www.marmiton.org/recettes/recherche.aspx?type=all&aqt=muffin#{recipe}"
+```
+
+### Inspecter le DOM
+
+L'inspecteur du navigateur permet de comprendre la construction HTML du site. Par exemple, les noms des recettes sont intégrées dans une balise `<h4>` contenant la classe `recipe-card__title`. Il est donc possible, grâce à *nokogiri*, de récupérer ces données :
+
+```ruby
+require 'open-uri'
+require 'nokogiri'
+
+recipe = "muffin" # Donnée entrée par l'utilisateur par la suite
+url = "https://www.marmiton.org/recettes/recherche.aspx?type=all&aqt=muffin#{recipe}"
+html_file = open(url).read
+html_doc = Nokogiri::HTML(html_file)
+html_doc.search('.recipe-card').each do |element|
+  puts element.text.strip
+end
+```
