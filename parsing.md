@@ -7,7 +7,7 @@ Le *storing* est l'opposé du *parsing*. Les données sont sérialisées pour ê
 
 # CSV
 
-**FORMAT**
+## Format
 
 Par défaut, les valeurs sont séparées par des `,` et englobées dans des `""`.
 
@@ -24,14 +24,18 @@ John;Doe;30
 Jane;Did;33
 ```
 
-**PARSING/STORING**
+## Parsing/Sorting
 
 Le module `csv` est importé avec `require`.
 
-**Parsing //** Les options sont définies : `col_sep` pour la séparation des colonnes, `quote_char` pour l'encadrement des valeurs, `headers` pour l'entête.
+### Parsing
+
+Les options sont définies : `col_sep` pour la séparation des colonnes, `quote_char` pour l'encadrement des valeurs, `headers` pour l'entête.
 La méthode `CSV.foreach` crée une boucle permettant d'effectuer une action ligne par ligne, chaque ligne étant un tableau de colonnes.
 
-**Storing //** Les options sont définies : `col_sep` pour la séparation des colonnes, `force_quotes` pour la présence d'encadrement et `quote_char` pour le signe d'encadrement. La méthode `CSV.open` prend trois arguments. Le deuxième signifie le mode d'ouverture : `r` pour *read* (défaut), `w` pour *write*, `a` pour *append* (à la suite), le `b` suivant signifiant que la donnée est directement écrite sur le disque dur.
+### Storing
+
+Les options sont définies : `col_sep` pour la séparation des colonnes, `force_quotes` pour la présence d'encadrement et `quote_char` pour le signe d'encadrement. La méthode `CSV.open` prend trois arguments. Le deuxième signifie le mode d'ouverture : `r` pour *read* (défaut), `w` pour *write*, `a` pour *append* (à la suite), le `b` suivant signifiant que la donnée est directement écrite sur le disque dur.
 
 ```ruby
 require 'csv'
@@ -57,7 +61,7 @@ end
 
 # JSON
 
-**FORMAT**
+## Format
 
 Le format JSON est le plus utilisé. Il peut être constitué d'un *hash* `{}` ou d'un *array*.
 
@@ -79,13 +83,17 @@ Le format JSON est le plus utilisé. Il peut être constitué d'un *hash* `{}` o
 }
 ```
 
+## Parsing/Sorting
+
 Le module `json` est importé avec `require`.
 
-**PARSING/STORING**
+### Parsing
 
-**Parsing //** Le fichier est récupéré au format sérialisé (*string*) avec `File.read(path)` puis est désérialisé (en *hash* ou *array*) avec la méthode `JSON.parse`.
+Le fichier est récupéré au format sérialisé (*string*) avec `File.read(path)` puis est désérialisé (en *hash* ou *array*) avec la méthode `JSON.parse`.
 
-**Storing //** Le fichier réceptionnant les données est ouvert avec la méthode `File.open` (les options types `wb` étant les mêmes qu'en CSV) puis reçoit les données avec la méthode `file.write`. Les données sont sérialisées avec la méthode `JSON.generate` qui peut être passée directement en attribut de la méthode précédente.
+### Storing
+
+Le fichier réceptionnant les données est ouvert avec la méthode `File.open` (les options types `wb` étant les mêmes qu'en CSV) puis reçoit les données avec la méthode `file.write`. Les données sont sérialisées avec la méthode `JSON.generate` qui peut être passée directement en attribut de la méthode précédente.
 
 ```ruby
 require 'json'
@@ -131,7 +139,7 @@ Le module `open-uri` est nécessaire pour ouvrir des adresses HTTP. Comme pour u
 
 # XML
 
-**FORMAT**
+## Format
 
 Le format XML, très proche du HTML, tend à disparaître. Il s'écrit avec des *tags* encastrés (*nested*).
 
@@ -152,13 +160,17 @@ Le format XML, très proche du HTML, tend à disparaître. Il s'écrit avec des 
 </contacts>
 ```
 
-**PARSING/STORING**
+## Parsing/Sorting
 
 La gem *nokogiri* doit être installée en amont. Le module `nokogiri` est importé avec `require`.
 
-**Parsing //** Le fichier est récupéré au format sérialisé puis *nokogiri* est utilisée pour transformer le fichier en document lisible par Ruby. La méthode `root.xpath` est utilisée en boucle sur chaque élément (ici "*contact*") pour récupérer et traiter les données.
+### Parsing
 
-**Storing //** Le format est créé grâce au *builder* fourni par *nokogiri*. Il est ensuite intégré dans le fichier avec la méthode `File.open`.
+Le fichier est récupéré au format sérialisé puis *nokogiri* est utilisée pour transformer le fichier en document lisible par Ruby. La méthode `root.xpath` est utilisée en boucle sur chaque élément (ici "*contact*") pour récupérer et traiter les données.
+
+### Storing
+
+Le format est créé grâce au *builder* fourni par *nokogiri*. Il est ensuite intégré dans le fichier avec la méthode `File.open`.
 
 ```ruby
 require 'nokogiri'
