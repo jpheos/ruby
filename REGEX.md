@@ -1,8 +1,8 @@
-# Expressions régulières
+> REGEX
 
 L'outil [Rubular](http://rubular.com/) permet de tester rapidement une expression régulière.
 
-### Généralités
+# Généralités
 
 Les Regex sont utiles pour vérifier du texte entré par l'utilisateur (un email...) ou analyser du texte (compter l'occurence d'un mot...).
 
@@ -11,7 +11,7 @@ Les Regex s'écrivent entre deux `/` par convention, mais il est possible de les
 /[a-z]/ # Regex indiquant que l'expression doit être une lettre minuscule entre "a" et "z" pour matcher
 ```
 
-### Codes Regex
+# Codes Regex
 
 Ces expressions permettent de tester si une valeur correspond exactement :
 ```ruby
@@ -100,7 +100,7 @@ Les signes `\A` et `\z` testent le début ou la fin - respectivement - de la lig
  ```
 
 
-### Informations diverses
+# Informations diverses
 
 Par défaut, même s'il n'est pas indiqué, on considère qu'il y a `{1}` :
 ```ruby
@@ -109,7 +109,7 @@ Par défaut, même s'il n'est pas indiqué, on considère qu'il y a `{1}` :
  ```
 }
 
-### Test Regex
+# Test Regex
 
 La comparaison `=~` permet de tester une correspondance, Ruby retournant l'indice auquel la première valeur est trouvée :
 ```ruby
@@ -161,7 +161,7 @@ La méthode `#scan` renvoit un tableau des *matchs* :
 "a-3-c b-1-d".scan(/(?<one>[a-z])-(?<two>[0-9])-(?<three>[a-z])/) # => [["a", "3", "c"], ["b", "1", "d"]]
  ```
 
-### Utilisation des Regex
+# Utilisation des Regex
 
 ***A compléter***
 *gsub*
