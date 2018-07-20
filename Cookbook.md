@@ -4,7 +4,7 @@
 
 On veut créer un programme qui gère des livres de recettes. On a donc des recettes et des livres qui regroupent ces recettes.
 
-Dans l'exercice demandé, on ne crée et travaille que sur un livre de recettes, avec plusieurs recettes à l'intérieur.
+Dans l'exercice demandé, on ne crée et travaille que sur un seul livre de recettes, avec plusieurs recettes à l'intérieur.
 
 
 ## Ordre des actions
@@ -45,8 +45,8 @@ end
 ```
 
 On ajoute deux variables d'instance :
-* @name pour le nom de la recette ;
-* @description pour la description de la recette.
+* `@name` pour le nom de la recette ;
+* `@description` pour la description de la recette.
 
 ```ruby
 class Recipe
@@ -101,7 +101,7 @@ class Cookbook
 end
 ```
 
-Une instance de la classe *Cookbook* regroupe des recettes, chaque livre de recettes (on en gère qu'un ici) aura donc pour données un regroupement de recettes. Un groupement en Ruby est représenté par un tableau qui regroupe des instances. Ici, les instances du tableau sont de la classe *Recipe*.
+Une instance de la classe *Cookbook* regroupe des recettes, chaque livre de recettes (on n'en gère qu'un ici) aura donc pour données un regroupement de recettes. Un groupement en Ruby est représenté par un tableau qui regroupe des instances. Ici, les instances du tableau sont de la classe *Recipe*.
 
 Comme nous souhaitons importer les recettes via un fichier CSV, nous créons d'abord un tableau vide, qui servira de receptacle aux données issues du CSV.
 
@@ -113,7 +113,7 @@ class Cookbook
 end
 ```
 
-Chaque livre de recettes (chaque instance *cookbook*) dispose d'un fichier CSV qui contient la liste des recettes (bien qu'ici on ne traite qu'un livre de recettes, donc qu'un fichier CSV). Le chemin vers le fichier CSV est donc une donnée pour l'instance *cookbook*. Le chemin sera indiqué en argument lorsque l'instance *cookbook* sera créée.
+Chaque livre de recettes (chaque instance de *Cookbook*) dispose d'un fichier CSV qui contient la liste des recettes (bien qu'ici on ne traite qu'un livre de recettes donc qu'un fichier CSV). Le chemin vers le fichier CSV est donc une donnée importante pour une instance de *Cookbook*. Le chemin sera indiqué en argument lorsque l'instance de *Cookbook* sera créée.
 
 ```ruby
 class Cookbook
@@ -124,14 +124,14 @@ class Cookbook
 end
 ```
 
-Ce qu'on souhaite, c'est qu'au moment où l'on crée le livre de recette, les données correspondant à ce livre de recettes :
-* soient récupérées dans le fichier CSV correspondant au livre de recettes ;
-* soient transformées du format CSV en instances recettes ;
-* soient stockées dans la variable *recipes* du livre de recettes.
+Ce qu'on souhaite, c'est qu'au moment où l'on crée le livre de recette, les données correspondant à ce livre de recettes soient :
+* récupérées dans le fichier CSV correspondant au livre de recettes concernés ;
+* transformées du format CSV en instances de *Recipe* ;
+* stockées dans la variable *recipes* du livre de recettes.
 
 Cela représente beaucoup d'actions... on crée donc une méthode dédiée dans la classe qu'on appelle *import_csv*.
 
-Pas à pas :
+Les étapes :
 1. les options d'importation sont définies dans la variable `csv_options` ;
 2. on utilise la méthode `foreach` de la librairie 'csv' qui permet de réaliser une action sur chaque ligne (`row`) ;
 3. pour chaque ligne du CSV, on crée une nouvelle instance de la classe *Recipe* en passant en argument le nom et la description et on le stocke dans une variable `recipe` (le nom est la première valeur de la ligne et la description la deuxième valeur de la ligne dans le fichier CSV) ;
@@ -140,13 +140,13 @@ Pas à pas :
 6. on termine la méthode d'import (`end`).
 
 ```ruby
-  def import_csv
-    csv_options = { col_sep: ',', quote_char: '"' }
-    CSV.foreach(@csv, csv_options) do |row|
-      recipe = Recipe.new(row[0], row[1])
-      @recipes << recipe
-    end
+def import_csv
+  csv_options = { col_sep: ',', quote_char: '"' }
+  CSV.foreach(@csv, csv_options) do |row|
+    recipe = Recipe.new(row[0], row[1])
+    @recipes << recipe
   end
+end
 ```
 
 Comme on a utilisé une méthode de la librairie `csv`, il faut qu'un importe cette librairie :
@@ -155,7 +155,7 @@ Comme on a utilisé une méthode de la librairie `csv`, il faut qu'un importe ce
 require 'csv'
 ```
 
-Comme on a utilisé une méthode sur la classe `Recipe` (avec `Recipe.new`) on importe aussi le fichier *recipe* :
+Comme on a utilisé une méthode de classe `Recipe` (avec `Recipe.new`) on importe aussi le fichier *recipe* :
 
 ```ruby
 require_relative 'recipe'
@@ -166,14 +166,14 @@ Notre méthode d'importation est prête. On veut maintenant qu'elle s'exécute l
 ```ruby
 class Cookbook
   def initialize(csv_path_file)
-    @recipes = [] # Les instances recettes seront stockées ici
+    @recipes = []
     @csv = csv_path_file
-    import_csv
+    import_csv # appel de la méthode import_csv au moment de l'initialisation
   end
 end
 ```
 
-Ok, l'initialisation d'un livre de recettes est terminé ! Il faut maintenant définir les comportements de l'instance.
+L'initialisation d'un livre de recettes est terminée ! Il faut maintenant définir les comportements de l'instance.
 
 On ajoute une méthode qui retourne la liste des recettes, donc la variable `@recipes` :
 
@@ -183,7 +183,7 @@ def all
 end
 ```
 
-On ajoute une méthode qui permet d'ajouter une recette. Cette méthode prend en argument la recette a ajouter et la stocke dans le tableau des recettes :
+On ajoute une méthode qui permet d'ajouter une recette. Cette méthode prend en argument la recette à ajouter et la stocke dans le tableau des recettes :
 
 ```ruby
 def add_recipe(recipe)
@@ -191,7 +191,7 @@ def add_recipe(recipe)
 end
 ```
 
-On ajoute une méthode qui permet de supprimer une recette. Cette méthode prend en argument l'index dans le tableau des recettes de la recette à supprimer et supprime cette valeur du tableau des recettes :
+On ajoute une méthode qui permet de supprimer une recette. Cette méthode prend en argument l'*index* dans le tableau des recettes de la recette à supprimer et supprime cette valeur du tableau des recettes :
 
 ```ruby
 def remove_recipe(recipe_index)
@@ -199,12 +199,12 @@ def remove_recipe(recipe_index)
 end
 ```
 
-Ok, c'est terminé ! Un seul problème : si on modifie le tableau des recettes en en ajoutant ou en en supprimant puis qu'on ferme le programme, les modifications ne seront pas conservées car nous n'avons pas modifié le fichier CSV. Il faut donc faire une méthode d'export...
+Terminé ! Un seul problème : si on modifie le tableau des recettes en en ajoutant ou en en supprimant puis qu'on ferme le programme, les modifications ne seront pas conservées car nous n'avons pas modifié le fichier CSV. Il faut donc faire une méthode d'export...
 
 La méthode d'export consiste à :
-1. définir les options d'export et les stockers dans une variable `csv_options`) ;
-2. ouvrir le fichier CSV en indiquant son chemin (`@csv`), qu'on souahite écrire dedans (`wb`) et avec certains options (`csv_options`) ;
-3. pour chaque recette du tableau des recettes, l'écrire dans le fichier CSV après l'avoir transformé au bon format (d'une instance à un format *string*) ;
+1. définir les options d'export et les stocker dans une variable `csv_options` ;
+2. ouvrir le fichier CSV en indiquant : son chemin (`@csv`), la méthode d'écriture (`wb`) et nos options (`csv_options`) ;
+3. pour chaque recette du tableau des recettes, l'écrire dans le fichier CSV après l'avoir transformée au bon format (d'une instance à un format *string*) ;
 4. fermer le fichier CSV et terminer la méthode.
 
 ```ruby
@@ -223,16 +223,16 @@ Maintenant, on veut que les données soient exportées dans le fichier CSV, autr
 ```ruby
 def add_recipe(recipe)
   @recipes << recipe
-  export_csv
+  export_csv # ici
 end
 
 def remove_recipe(recipe_index)
   @recipes.delete_at(recipe_index)
-  export_csv
+  export_csv # ici
 end
 ```
 
-La classe *Cookbook* est prête ! Au final on obtient :
+La classe *Cookbook* est prête. Au final on a :
 
 ```ruby
 require 'csv'
@@ -281,7 +281,7 @@ end
 
 ```
 
-Maintenant que la classe *Cookbook* est prête a être utilisée, on va en créer une instance, autrement dit on va générer une instance (un livre de recettes) pour pouvoir jouer avec...
+Maintenant que la classe *Cookbook* est prête à être utilisée, on va en créer une instance, autrement dit on va générer une instance (un livre de recettes) pour pouvoir l'utiliser...
 
 Cela est déjà écrit dans le fichier *app.rb* pour l'exercice :
 
@@ -295,7 +295,7 @@ Le but du contrôleur est de définir comment l'utilisateur va pouvoir interagir
 
 On crée le fichier *controller.rb*.
 
-Le contrôleur étant lié aux autres classes et ayant besoin d'utiliser leurs méthodes, on les importe :
+Le contrôleur étant lié aux autres classes et ayant besoin d'utiliser leurs méthodes de classe, on les importe :
 
 ```ruby
 require_relative 'recipe'
@@ -310,7 +310,7 @@ class Controller
 end
 ```
 
-Le contrôleur fait le lien entre la vue et le modèle. Il faut bien imaginer qu'il y a plusieurs vues et plusieurs modèles, par exemple s'il y a d'autres types de livres que des livres de recettes.
+Le contrôleur fait le lien entre la vue et le modèle. Il faut imaginer qu'il y a plusieurs vues et plusieurs modèles, par exemple s'il y a d'autres types de livres que des livres de recettes (des romans, des dictionnaires...).
 
 Il faut donc bien dire que le contrôleur des livres de recettes doit être lié au modèle des livres de recettes et à la vue des livres de recettes.
 
@@ -339,9 +339,7 @@ def list
 end
 ```
 
-On définit la méthode d'ajout d'une recette. Le nom de la recette est récupéré grâce à la méthode *ask_recipe_name* de la vue et stocké dans une variable `name` ; la description grâce à la méthode *ask_recipe_description* de la vue et stockée dans une variable `description`. Une fois ces données en sa possession, le contrôleur crée une nouvelle instance recette avec en argument les variables `name` et `description` et le stocke dans une variable `recipe`. Puis il utilise la méthode *add_recipe* du modèle avec la variable `recipe` en argument pour ajouter la recette.
-
-Pour rappel, la méthode *add_recipe* du modèle consiste à ajouter l'argument donné au tableau des recettes et à exporter le tableau à jour dans le fichier CSV.
+On définit la méthode d'ajout d'une recette. Le nom de la recette est récupéré grâce à la méthode *ask_recipe_name* de la vue et est stocké dans une variable `name` ; la description est récupérée grâce à la méthode *ask_recipe_description* de la vue et est stockée dans une variable `description`. Une fois ces données en sa possession, le contrôleur crée une nouvelle instance recette avec en argument les variables `name` et `description` et la stocke dans une variable `recipe`. Puis il utilise la méthode *add_recipe* du modèle avec la variable `recipe` en argument pour ajouter la recette.
 
 ```ruby
 def create
@@ -363,7 +361,7 @@ def destroy
 end
 ```
 
-La classe *Controller* est terminée !
+La classe *Controller* est terminée.
 
 Au final on a :
 
@@ -399,7 +397,7 @@ class Controller
 end
 ```
 
-On peut donc aller dans notre fichier *app.rb* est créer une instance *controller* en lui passant en argument le *cookbook* créé précédemment. Cela est déjà écrit dans le fichier *app.rb* pour l'exercice :
+On peut donc aller dans le fichier *app.rb* et créer une instance *controller* en lui passant en argument le *cookbook* créé précédemment. Cela est déjà écrit dans le fichier *app.rb* pour l'exercice :
 
 ```ruby
 cookbook   = Cookbook.new(csv_file)
@@ -409,7 +407,7 @@ controller = Controller.new(cookbook)
 
 ## Modélisation de la vue
 
-Dans le contrôleur, on a appellé des méthodes de la vue. Il faut donc les créer dans notre classe *View*.
+Dans le contrôleur, on a appellé des méthodes de la vue. Il faut donc les créer dans la classe *View*.
 
 On crée le fichier *view.rb*.
 
@@ -420,7 +418,7 @@ class View
 end
 ```
 
-Pour rappelle, dans le contrôleur, nous avions fait passé la main à la vue pour :
+Pour rappelle, dans le contrôleur, nous avions passé la main à la vue pour :
 * afficher la liste des recettes (méthode *display(recipes)*)
 * demander le nom de la recette lors d'un ajout (méthode *ask_recipe_name*);
 * demander la description de la recette lors d'un ajout (méthode *ask_recipe_description*);
@@ -594,8 +592,6 @@ On est dans une boucle *while*, la variable *running* est toujours égale à *tr
 ```
 Chemin complet : router => controller => model => controller => view => controller => routeur
 ```
-
-
 ### Ajout d'une recette
 
 Si l'utilisateur choisit 2, la méthode *create* du *controller* est appellée :
