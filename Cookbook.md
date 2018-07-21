@@ -11,9 +11,9 @@ Dans l'exercice demandé, on ne crée et travaille que sur un seul livre de rece
 
 Dans l'ordre, il faut :
 
-1. Écrire la classe *Recipe* - dans le fichier *recipe.rb* - qui définit une instance *recipe* (recette).
+1. Écrire la classe *Recipe* - dans le fichier *recipe.rb* - qui définit une instance *recipe* (recette). C'est le **modèle** (*model*) dans la structure MVC.
 
-2. Écrire la classe *Cookbook* - dans le fichier *cookbook.rb* - qui regroupe les instances recettes (livre de recettes). C'est le **modèle** (*model*) dans la structure MVC.
+2. Écrire la classe *Cookbook* - dans le fichier *cookbook.rb* - qui regroupe les instances recettes (livre de recettes). 
 
 3. Écrire la classe *Controller*,- dans le fichier *controller.rb* - qui gère les liens entre la vue et le modèle. C'est le **contrôleur** (*controller*) dans le modèle MVC.
 
@@ -92,7 +92,7 @@ class Cookbook
 end
 ```
 
-On écrit la méthode d'initialisation. Cette méthode est lancée automatiquement lors de la création d'une instance avec `Recipe.new`.
+On écrit la méthode d'initialisation. Cette méthode est lancée automatiquement lors de la création d'une instance avec `Cookbook.new`.
 
 ```ruby
 class Cookbook
@@ -101,14 +101,14 @@ class Cookbook
 end
 ```
 
-Une instance de la classe *Cookbook* regroupe des recettes, chaque livre de recettes (on n'en gère qu'un ici) aura donc pour données un regroupement de recettes. Un groupement en Ruby est représenté par un tableau qui regroupe des instances. Ici, les instances du tableau sont de la classe *Recipe*.
+Une instance de la classe *Cookbook* regroupe des recettes, chaque livre de recettes (on n'en gère qu'un ici) aura donc pour données un regroupement de recettes. Un groupement en Ruby est représenté par un tableau qui regroupe des instances. Ici, le tableau contient des instances de la classe *Recipe*.
 
 Comme nous souhaitons importer les recettes via un fichier CSV, nous créons d'abord un tableau vide, qui servira de receptacle aux données issues du CSV.
 
 ```ruby
 class Cookbook
   def initialize
-    @recipes = [] # Les instances recettes seront sotckés ici
+    @recipes = [] # Les instances recettes seront stockées ici
   end
 end
 ```
@@ -118,7 +118,7 @@ Chaque livre de recettes (chaque instance de *Cookbook*) dispose d'un fichier CS
 ```ruby
 class Cookbook
   def initialize(csv_path_file)
-    @recipes = [] # Les instances recettes seront sotckés ici
+    @recipes = [] # Les instances recettes seront stockées ici
     @csv = csv_path_file
   end
 end
@@ -576,7 +576,7 @@ def list
 end # you're here
 ```
 
-On retourne dans la méthode d'où l'on venait, c'est-à-dire la méthode *route_action* du *router*. Celle-ci est aussi terminée. On retourne donc encore dans la méthode précédente, c'est-à-dire la méthode ùrun* du *router*.
+On retourne dans la méthode d'où l'on venait, c'est-à-dire la méthode *route_action* du *router*. Celle-ci est aussi terminée. On retourne donc encore dans la méthode précédente, c'est-à-dire la méthode *run* du *router*.
 
 ```ruby
 while @running
